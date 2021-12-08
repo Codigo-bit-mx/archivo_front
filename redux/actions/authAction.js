@@ -14,7 +14,7 @@ export function registroUsuarioAction(usuario){
     
     return async (dispatch) => {
         try{
-            const respuesta = await clienteAxios.post('/api/auth/newuser', usuario);
+            const respuesta = await clienteAxios.post('/api/login/newuser', usuario);
             dispatch({
                 type: REGISTRO_EXISTOSO,
                 payload: respuesta.data
@@ -39,7 +39,7 @@ export function iniciarSesionAction(usuario) {
     
     return async (dispatch) => {
         try {
-            const respuesta = await clienteAxios.post('/api/auth/login', usuario);
+            const respuesta = await clienteAxios.post('/api/login/login', usuario);
             dispatch({
                 type: LOGIN_EXITOSO,
                 payload: respuesta.data
@@ -69,7 +69,7 @@ export function obtenerUsuarioAction () {
             tokenAuth(token);
         }
         try {
-            const respuesta = await clienteAxios.get('/api/auth/user');
+            const respuesta = await clienteAxios.get('/api/login/usuarios');
             console.log(respuesta);
             dispatch({
                 type: OBTENER_USUARIO,
@@ -92,7 +92,7 @@ export function onSignInAction(usuario) {
         }
 
         try {
-             const respuesta = await clienteAxios.post('/api/auth/google', date);
+             const respuesta = await clienteAxios.post('/api/login/google', date);
              dispatch({
                  type: LOGIN_EXITOSO,
                  payload: respuesta.data

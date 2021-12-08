@@ -41,6 +41,7 @@ const ContenedorForm = styled.div`
         font-size: 13px;
         font-family: 'Poppins', sans-serif;
         line-height: 22px;
+        cursor: pointer;
     }
 
     @media(min-width: 768px){

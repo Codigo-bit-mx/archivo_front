@@ -197,7 +197,7 @@ const back = () => {
         <input 
             type="text"
             id = "nombre"
-            placeholder=" Ingresa tu nombre"
+            placeholder="Ingresa tu nombre"
             name="nombre"
             value={nombre}
             onChange = {cambios}
@@ -216,7 +216,7 @@ const back = () => {
         <input 
             type="date"
             id="cumpleaños"
-            placeholder=" Ingresa tu fecha de cumpleaños"
+            placeholder="Ingresa tu fecha de cumpleaños"
             name="cumpleaños"
             value={cumpleaños}
             onChange = {cambios}
@@ -235,7 +235,7 @@ const back = () => {
         <input 
             type="email"
             id="email"
-            placeholder=" Ingresa tu email"
+            placeholder="Ingresa tu email"
             name="email"
             value={email}
             onChange = {cambios}

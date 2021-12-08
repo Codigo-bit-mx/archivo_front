@@ -71,7 +71,7 @@ const Archivos = () => {
                    <p>Titulo: {archivo.nombre}</p>
                    <p>Creado el: {horaMes(archivo.creado)}</p>
                    <button onClick={() => eliminarArchivo(archivo._id)}>Eliminar</button>
-                <button> Descargar </button>
+                {/* <button> Descargar </button> */}
                </ContenedorLI>
             ))
         }

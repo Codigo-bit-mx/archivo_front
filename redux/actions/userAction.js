@@ -22,9 +22,9 @@ export function actualizarDatosAction(id, imguser, newdateuser) {
         try {
             if( imguser.name !== undefined ) {
                 console.log("ENTRE");
-                actualizarImgAction(id, imguser);
+                actualizarImgAction(imguser);
             }    
-             const respuesta = await clienteAxios.put(`/api/user/${id}`, newdateuser);    
+             const respuesta = await clienteAxios.put('/api/user/actualizar', newdateuser);    
 
              dispatch({
                  type: REGISTRO_USUARIO_ACTUALIZADO,
@@ -52,7 +52,7 @@ export function actualizarDatosAction(id, imguser, newdateuser) {
     }
 }
 
-const actualizarImgAction = async(id, imguser) => {
+const actualizarImgAction = async(imguser) => {
     const token = localStorage.getItem('token');
     if(token){
         tokenAuth(token);
@@ -61,7 +61,7 @@ const actualizarImgAction = async(id, imguser) => {
         formDate.append('archivo', imguser);
         console.log(formDate);
         try{
-         await clienteAxios.put(`/api/user/imagen/${id}`, formDate);
+         await clienteAxios.put('/api/user/actualizarimg', formDate);
         } catch (error) {
             console.log(error);
         }
@@ -76,7 +76,7 @@ export function subirArchivoAction (datos) {
             tokenAuth(token);
         }
         try {
-            const resultado = await clienteAxios.post('/api/file', datos);
+            const resultado = await clienteAxios.post('/api/archivo/file', datos);
             
             dispatch({
                 type:SUBIDA_ARCHIVO,
@@ -120,7 +120,7 @@ export function obtenerArchivosAction () {
             tokenAuth(token);
         }
         try {
-            const respuesta = await clienteAxios.get('/api/file');
+            const respuesta = await clienteAxios.get('/api/archivo/file');
             
             dispatch({
                 type: OBTENER_ARCHIVOS,
@@ -145,17 +145,18 @@ export function obtenerArchivosAction () {
 
 export function eliminarArchivoAction(id) {
     console.log(id);
-    return async (dispatch) => {
-        const token = localStorage.getItem('token');
-        if(token){
-            tokenAuth(token);
+     return async (dispatch) => {
+         const token = localStorage.getItem('token');
+         if(token){
+             tokenAuth(token);
         }
         try{
-           const respuesta = await clienteAxios.put(`/api/file/${id}`);
+           const respuesta = await clienteAxios.put(`api/archivo/file?id=${id}`);
+            
               dispatch({
-                type: ELIMINAR_ARCHIVO,
-           })
-           setTimeout(() => {
+                 type: ELIMINAR_ARCHIVO,
+            })
+            setTimeout(() => {
                dispatch({
                 type: REGRESAR_CAMBIO_ARCHIVO
                })
@@ -172,7 +173,7 @@ export function eliminarArchivoAction(id) {
                 })
             }, 2000)
 
-        }catch(error){
+        } catch(error){
             
             dispatch({
                 type: ALERTAS_ACTUALIZACION_USER,
@@ -185,7 +186,7 @@ export function eliminarArchivoAction(id) {
                 })
             }, 2000)
         }
-    }
+     }
 }
 
 export function alertaFrontAction(errorfront) {

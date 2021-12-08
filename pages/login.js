@@ -137,6 +137,10 @@ const NuevaCuenta = styled.div`
     a{
         text-align: center;
         color: white; 
+        cursor: pointer;
+    }
+    p{
+        cursor: pointer;
     }
 `;
 
@@ -170,9 +174,7 @@ const Login = (props) => {
     //uso del estado
      const auth = useSelector(state => state.auth);
      const {autenticado, token, alerta, msgcorrecto, msgerror} = auth;
-
-    // const {alerta, mensaje} = useSelector(state => state.alerta);
-    
+ 
     //estados local
     const [usuario, guardarUsuario ] = useState({
         email: '',
