@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +26,7 @@ const getColor = (props) => {
 const Drop = styled.div`
     flex:1;
     display: flex;
+    justify-content: center;
     align-items: center;
     padding: 40px;
     border-width: 2px;
@@ -52,10 +53,16 @@ const Parrafo = styled.p`
  text-align: center;
  font-family: 'Poppins', sans-serif;
 `;
+
+const ContainerBTN = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 const Button = styled.button`
     margin: 0 auto;
     width: 40%;
-    margin: 5px auto 2em auto;
+    margin: 5px auto 1em auto;
     background-color: #171717;
     padding: 7px 8px;
     color: white;
@@ -101,17 +108,32 @@ const Dropzone = () => {
     const dispatch = useDispatch();
     const subirArchivo = (archivo) => dispatch ( subirArchivoAction(archivo) );
 
-    const [ carga, setCarga ] = useState(null);
+    const [ archivo, setArchivo ] = useState();
 
     const onDropAccepted = useCallback( async (acceptedFiles) => {
-    console.log(acceptedFiles);
         // const cloudPreset = 'ml_default';
-        const archivo = new FormData();
         // formData.append('upload_preset', cloudPreset);
-        archivo.append('archivo', acceptedFiles[0]);
-        console.log(archivo);
-        subirArchivo(archivo);
-    }, [subirArchivo]);
+        setArchivo(  acceptedFiles[0] );
+        // console.log(archivo);
+        // subirArchivo(archivo);
+        // return archivo
+    }, []);
+
+    const onDropCancel = () => {
+       if(archivo){
+           return setArchivo()
+       }
+    }
+
+    const cargar = () => {
+        if(!archivo) {
+            return 
+        }
+        console.log("en carga", archivo)
+        const file = new FormData()
+        file.append('archivo', archivo)
+        subirArchivo(file)
+    }
 
   
     const { getRootProps,
@@ -122,38 +144,68 @@ const Dropzone = () => {
             acceptedFiles,
             open } = useDropzone({onDropAccepted});
 
-
-    const files = acceptedFiles.map(file => (
-        <li key={file.path}>
-            <Parrafo> Imagen anterior: {file.path} - {file.size} bytes </Parrafo>
-        </li>
-    ));
-
-
     
+//    const files = useEffect(() => {
+// //    console.log(archivo)
+//     if(archivo) {
+//         console.log(archivo)
+//      return  archivo.map(file => (
+//            <li key={file.path}>
+//             <Parrafo> Imagen anterior: {file.path} - {file.size} bytes </Parrafo>
+//            </li>
+//       ));
+//    } 
+             
+//     }, [archivo])
+ 
 
     return ( 
    
 
     <Section>
 
-        <Drop {...getRootProps({isDragActive, isDragAccept, isDragReject})}>
+        <Drop
+        
+        {...getRootProps({isDragActive, isDragAccept, isDragReject})}>
         <input {...getInputProps() } />
         <Parrafo>Arrastra tu archivo sobre este recuadro</Parrafo>
+     
         </Drop>
         
         <aside>
             <Resumen>o</Resumen>
             <Lista>
-                {files}
+                {archivo ? <li key={archivo.path}> 
+                 <Parrafo> Imagen anterior: {archivo.path} - {archivo.size} bytes </Parrafo>
+                 </li> : null}
             </Lista>
         </aside>
 
+        <ContainerBTN>
         <Button type="button" 
                  onClick={ open }
                 >
-            Fichero
+           Abrir Fichero
         </Button>
+
+
+        <Button type="button" 
+                 onClick={ onDropCancel }
+                >
+            Eliminar
+        </Button>
+
+
+        <Button type="button" 
+                 onClick={ cargar }
+                >
+            Cargar
+        </Button>
+        </ContainerBTN>
+
+     
+
+
      </Section>
 
    

@@ -44,7 +44,7 @@ file.post(async (req, res) => {
         const file = files.archivo;
         
          //carga solo texto plano txt
-         const extencionValida = ['txt'];
+         const extencionValida = ['txt', 'jpeg', 'png', 'JPEG'];
          const nameCorte  = files.archivo.originalFilename.split('.');
          const extencion = nameCorte[nameCorte.length-1];
 
@@ -89,6 +89,7 @@ file.put(async (req, res) => {
   await dbConexion();
   const nameBucket = process.env.BUCKET_NAME;
   const { id } = req.query;
+  console.log(nameBucket)
   console.log(id);
   const fecha = new Date();
 
@@ -96,7 +97,9 @@ file.put(async (req, res) => {
       //borron en aws
       const dato =  await Archivo.findById(id);
       const nombre =  dato.nombre;
+      console.log(nombre)
       const result = await deleteFileToBucket(nameBucket, nombre);
+      console.log(result)
       if(!result){
           res.status(400).json({
               msg: "existe un problema con aws"

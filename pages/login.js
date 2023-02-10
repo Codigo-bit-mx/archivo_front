@@ -12,6 +12,7 @@ import { iniciarSesionAction,
          obtenerUsuarioAction,
          alertaFrontAction 
        } from '../redux/actions/authAction';
+       
  
 const ContenedorLOGIN = styled.div`
     width: 100%;
@@ -22,6 +23,7 @@ const ContenedorLOGIN = styled.div`
 const FormUsuario = styled.div`
     background-color: #171717;
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,7 +39,7 @@ const ContenedorForm = styled.div`
     background-color: #171717;
     color: white;
 
-    P{
+    p{
         text-align: center;
         margin: 2em 0;
         font-size: 13px;
@@ -53,7 +55,7 @@ const ContenedorForm = styled.div`
 `;
 
 const CampoForm = styled.div`
-    width: 100%;
+   
     display: flex;
     margin-bottom: 2em;
     align-items: center;
@@ -65,7 +67,7 @@ const CampoForm = styled.div`
         flex: 1;
         border-radius: 12px;
         outline: none;
-        font-family: 'Noto Sans', sans-serif;
+        font-family: 'Poppins',sans-serif;
         font-size: 16px;
         font-weight: 550;
 
@@ -78,14 +80,15 @@ const CampoForm = styled.div`
         flex: 1;
         border-radius: 12px;
         outline: none;
-        font-family: 'Noto Sans', sans-serif;
+        font-family: 'Poppins',sans-serif;
         font-size: 16px;
         font-weight: 550;
     }
 
     input::placeholder{
         color: #828282;
-        font-family: "Font Awesome 5 Free";
+        font-family: 'Poppins',sans-serif';
+        font-size: 14px;
     }
 
     input[type="submit"]{
@@ -96,7 +99,7 @@ const CampoForm = styled.div`
         border: 1px solid #2F80ED;
         border-radius: 12px;
         outline: none;
-        font-family: 'Noto Sans', sans-serif;
+        font-family: 'Poppins',sans-serif;
     }
 `;
 
@@ -225,75 +228,75 @@ const Login = (props) => {
         <ContenedorLOGIN>
         <FormUsuario>
 
-        <ContenedorForm>
-            <h3>DropBitMx.!</h3>
-            <p>Ingresa a tu perfil de DropBitMx descrubre sube, observa y elimina tus archivos</p>
+            <ContenedorForm>
+                <h3>DropBitMx.!</h3>
+                <p>Ingresa a tu perfil de DropBitMx descrubre sube, observa y elimina tus archivos</p>
 
-        <form
-            onSubmit={envioDatos}
-        >
-            <CampoForm>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={email}
-                    placeholder="Ingresa tu email"
-                    onChange = { datosForm }
+            <form
+                onSubmit={envioDatos}
+            >
+                <CampoForm>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={email}
+                        placeholder="Ingresa tu email"
+                        onChange = { datosForm }
+                    />
+                </CampoForm>
+
+                <CampoForm>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={password}
+                        placeholder="Ingresa tu password"
+                        onChange = { datosForm }
+                    />
+                </CampoForm>
+
+                {alerta ?
+                    <Alarma> <p> {msgerror} </p> </Alarma>
+                : null}
+
+                <CampoForm>
+                    <input
+                        type="submit"
+                        value="Iniciar Sesion"
+                    />
+                </CampoForm>
+
+            </form>
+
+            <p>O continua con tu perfil de Gmail </p>
+        
+            <ContenedorRedes>
+                <div></div>
+                <GoogleLogin
+                clientId="866270435461-psgl6qom45nv9bcf3j09j0h7j6mqqdnm.apps.googleusercontent.com"  
+                render={renderProps => (
+                    <RedesIcon onClick={renderProps.onClick} disabled={renderProps.disabled}><p> <AiOutlineGoogle /></p></RedesIcon>
+                )}
+                buttonText=""
+                onSuccess={ responseGoogle }
+                onFailure={ responseGoogle }
+                cookiePolicy={'single_host_origin'}
                 />
-            </CampoForm>
+                <div></div>
+            </ContenedorRedes>
 
-            <CampoForm>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={password}
-                    placeholder="Ingresa tu password"
-                    onChange = { datosForm }
-                />
-            </CampoForm>
+            <NuevaCuenta>
+            <Link href='/newcuenta'> 
+            <p> Obtenen un cuenta aqui</p>
+            </Link>
+            </NuevaCuenta>
 
-             {alerta ?
-                <Alarma> <p> {msgerror} </p> </Alarma>
-             : null}
+            </ContenedorForm>
 
-            <CampoForm>
-                <input
-                    type="submit"
-                    value="Iniciar Sesion"
-                />
-            </CampoForm>
-
-        </form>
-
-        <p>O continua con tu perfil de Gmail </p>
-    
-        <ContenedorRedes>
-            <div></div>
-            <GoogleLogin
-            clientId="866270435461-psgl6qom45nv9bcf3j09j0h7j6mqqdnm.apps.googleusercontent.com"  
-            render={renderProps => (
-                <RedesIcon onClick={renderProps.onClick} disabled={renderProps.disabled}><p> <AiOutlineGoogle /></p></RedesIcon>
-            )}
-            buttonText=""
-            onSuccess={ responseGoogle }
-            onFailure={ responseGoogle }
-            cookiePolicy={'single_host_origin'}
-            />
-            <div></div>
-        </ContenedorRedes>
-
-        <NuevaCuenta>
-        <Link href='/newcuenta'> 
-           <p> Obtenen un cuenta aqui</p>
-        </Link>
-        </NuevaCuenta>
-
-        </ContenedorForm>
-
-    </FormUsuario>
-    </ContenedorLOGIN>
+        </FormUsuario>
+        </ContenedorLOGIN>
      );
 }
  

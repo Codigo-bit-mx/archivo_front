@@ -144,7 +144,7 @@ export function obtenerArchivosAction () {
 }
 
 export function eliminarArchivoAction(id) {
-    console.log(id);
+    
      return async (dispatch) => {
          const token = localStorage.getItem('token');
          if(token){
@@ -153,7 +153,7 @@ export function eliminarArchivoAction(id) {
         try{
            const respuesta = await clienteAxios.put(`api/archivo/file?id=${id}`);
             
-              dispatch({
+            dispatch({
                  type: ELIMINAR_ARCHIVO,
             })
             setTimeout(() => {

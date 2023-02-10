@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   env: {
-    CONEXION_LOGIN_BD:'mongodb+srv://codigoBitMx:5taffSoport3@cluster0.0txm0.mongodb.net/archivos?retryWrites=true&w=majority',
+    CONEXION_LOGIN_BD:'mongodb+srv://codigoBitMx:5taffSoport3@cluster0.9eixk.mongodb.net/archivos?retryWrites=true&w=majority',
     secretKey:'g/4JSZE7AoOQVtncmUqEiQ==',
     CLOUDINARY_URL:'cloudinary://183487733814841:WKr4toenw5-boZOCgfZq4Bcty60@codigobit',
     CLOUDINARY_CLOUD_NAME: 'codigobit',

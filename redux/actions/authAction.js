@@ -46,7 +46,13 @@ export function iniciarSesionAction(usuario) {
             });
         
         }catch(error){
-            
+            console.log(error)
+            if(!error.response.data){
+                dispatch({
+                    type: LOGIN_ERROR,
+                    payload: 'Problemas de conexión'
+                });
+            }
             dispatch({
                 type: LOGIN_ERROR,
                 payload: error.response.data.msg
@@ -70,13 +76,29 @@ export function obtenerUsuarioAction () {
         }
         try {
             const respuesta = await clienteAxios.get('/api/login/usuarios');
-            console.log(respuesta);
+            
             dispatch({
                 type: OBTENER_USUARIO,
                 payload: respuesta.data
             })
         } catch (error) {
-            console.log(error.response.data.msg);
+            if(!error){
+                dispatch({
+                    type: LOGIN_ERROR,
+                    payload: 'Problemas de conexión no se obtuvo el usuario'
+                });
+            }
+
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: error.response.data.msg
+            });
+
+            setTimeout(() => {
+                dispatch({
+                    type: LIMPIAR_ERROR_ALERTA
+                })
+            }, 2000);
         }
     }
 }
@@ -99,6 +121,13 @@ export function onSignInAction(usuario) {
              })
 
         } catch (error) {
+            if(!error){
+                dispatch({
+                    type: LOGIN_ERROR,
+                    payload: 'Problemas de conexión'
+                });
+            }             
+
             dispatch({
                 type: LOGIN_ERROR,
                 payload: error.response.data.msg

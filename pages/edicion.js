@@ -6,12 +6,20 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 
-const PerfilEdicion = styled.div`
+const ContenedorEdicion = styled.div`
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 100%;
+    background-color: #000;
+`;
+
+const FormEdicion = styled.div`
     background-color: #171717;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
 `;
 
 const ContenedorForm = styled.div`
@@ -175,16 +183,17 @@ const back = () => {
     router.push('/drop');
 }
 
-
-    return ( 
+  return ( 
         
-        <Layout>
-        <PerfilEdicion>
+   <Layout>
+   <ContenedorEdicion>
+   <FormEdicion>
+
        
         <ContenedorForm>
         <p  onClick={() => back()}>  <FaArrowLeft /> Back</p>
         <h3>Edicion del perfil</h3>
-        <p>Cambia los datos que te interesen</p>
+        <p>Cambia los datos que te interesen</p> 
       
         <Form>
         <input 
@@ -249,9 +258,10 @@ const back = () => {
 
         </Form>
         </ContenedorForm>
-    </PerfilEdicion>
+     </FormEdicion>
+    </ContenedorEdicion>
     </Layout>
-     );
+ );
 }
  
 export default Edicion;

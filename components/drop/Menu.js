@@ -120,7 +120,7 @@ const Menu = () => {
             
          (  <MenuApertura>
               <ul>
-                 <li onClick={() => cambioEdicion()}><p >editar</p></li>
+                 <li onClick={() => cambioEdicion()}><p>Editar</p></li>
                  <li onClick={() =>cerrarSesion()}><p>Salir</p></li>
               </ul> 
              </MenuApertura>
