@@ -46,7 +46,7 @@ export function iniciarSesionAction(usuario) {
             });
         
         }catch(error){
-            console.log(error)
+            
             if(!error.response.data){
                 dispatch({
                     type: LOGIN_ERROR,

@@ -3,6 +3,7 @@ import styled                       from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiFillCaretDown }          from "react-icons/ai";
 import { cerrarSesionAction, obtenerUsuarioAction } from '../../redux/actions/authAction';
+import { cerrar_sesion_archivo } from '../../redux/actions/userAction';
 import { useRouter } from 'next/router';
 
 const ContenedorMenu = styled.div`
@@ -77,6 +78,7 @@ const Menu = () => {
     const dispatch = useDispatch();
     //funciones del state
     const obtenerUsuario = () => dispatch(obtenerUsuarioAction());
+    const cerrarSesionArchivo = () => dispatch(cerrar_sesion_archivo())
     const cerrarSesion = () => dispatch(cerrarSesionAction());
     //state
     const datosUser = useSelector(state => state.auth.usuario);
@@ -96,6 +98,11 @@ const Menu = () => {
     useEffect(() => {
       obtenerUsuario()
     }, [cambio]);
+
+    const cerrar_sesion = () => {
+        cerrarSesionArchivo()
+        cerrarSesion()
+    }
 
     const cambioEdicion = () => {
         router.push('/edicion');
@@ -121,7 +128,7 @@ const Menu = () => {
          (  <MenuApertura>
               <ul>
                  <li onClick={() => cambioEdicion()}><p>Editar</p></li>
-                 <li onClick={() =>cerrarSesion()}><p>Salir</p></li>
+                 <li onClick={() =>cerrar_sesion()}><p>Salir</p></li>
               </ul> 
              </MenuApertura>
          )

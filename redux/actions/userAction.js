@@ -5,8 +5,10 @@ import {
     OBTENER_ARCHIVOS,
     ELIMINAR_ARCHIVO,
     REGRESAR_CAMBIO_ARCHIVO,
+    LOADING,
     ALERTAS_ACTUALIZACION_USER,
-    LIMPIAR_ALERTAS_USER
+    LIMPIAR_ALERTAS_USER,
+    CERRAR_SESION_ARCHIVOS
 } from '../../types';
 
 import tokenAuth    from '../../config/tokenAuth';
@@ -38,6 +40,13 @@ export function actualizarDatosAction(id, imguser, newdateuser) {
             
         } catch (error) {
 
+            if(!error){
+                dispatch({
+                    type: ALERTAS_ACTUALIZACION_USER,
+                    payload: 'Problemas de conexión'
+                })
+            }
+
             dispatch({
                 type: ALERTAS_ACTUALIZACION_USER,
                 payload: error.response.data.msg
@@ -63,7 +72,23 @@ const actualizarImgAction = async(imguser) => {
         try{
          await clienteAxios.put('/api/user/actualizarimg', formDate);
         } catch (error) {
-            console.log(error);
+            if(!error){
+                dispatch({
+                    type: ALERTAS_ACTUALIZACION_USER,
+                    payload: 'Problemas de conexión'
+                })
+            }
+
+            dispatch({
+                type: ALERTAS_ACTUALIZACION_USER,
+                payload: error.response.data.msg
+            })
+
+            setTimeout(() => {
+                dispatch({
+                    type : LIMPIAR_ALERTAS_USER
+                })
+            }, 2000)
         }
 }
 
@@ -75,6 +100,10 @@ export function subirArchivoAction (datos) {
         if(token){
             tokenAuth(token);
         }
+            dispatch({
+                type: LOADING
+            })
+
         try {
             const resultado = await clienteAxios.post('/api/archivo/file', datos);
             
@@ -99,6 +128,13 @@ export function subirArchivoAction (datos) {
 
         } catch (error) {
             
+            if(!error){
+                dispatch({
+                    type: ALERTAS_ACTUALIZACION_USER,
+                    payload: 'Problemas de conexión'
+                })
+            }
+
              dispatch({
                 type: ALERTAS_ACTUALIZACION_USER,
                 payload: error.response.data.msg
@@ -128,6 +164,12 @@ export function obtenerArchivosAction () {
             }); 
            
         } catch (error) {
+            if(!error){
+                dispatch({
+                    type: ALERTAS_ACTUALIZACION_USER,
+                    payload: 'Problemas de conexión'
+                })
+            }
             dispatch({
                 type: ALERTAS_ACTUALIZACION_USER,
                 payload: error.response.data.msg
@@ -174,7 +216,12 @@ export function eliminarArchivoAction(id) {
             }, 2000)
 
         } catch(error){
-            
+            if(!error){
+                dispatch({
+                    type: ALERTAS_ACTUALIZACION_USER,
+                    payload: 'Problemas de conexión'
+                })
+            }
             dispatch({
                 type: ALERTAS_ACTUALIZACION_USER,
                 payload: error.response.data.msg
@@ -208,4 +255,17 @@ export function alertaFrontAction(errorfront) {
         }
     }
 
+}
+
+export function cerrar_sesion_archivo() {
+    return(dispatch) => {
+        try {
+            dispatch({
+                type: CERRAR_SESION_ARCHIVOS
+            })
+
+        }catch(error) {
+            console.log(error)
+        }
+    }
 }

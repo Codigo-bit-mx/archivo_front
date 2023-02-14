@@ -4,16 +4,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { obtenerArchivosAction, 
          eliminarArchivoAction }    from '../../redux/actions/userAction';
 import { horaMes } from '../../helpers/horaMes';
+import {css} from '@emotion/react';
 
 const ContenedorUL = styled.ul`
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 100%;
     width: 90%;
     margin: 2em auto;
     padding: 0;
+
+    @media(min-width: 768px){
+        grid-template-columns: 50% 50%; 
+    }
+
+    @media(min-width: 900px){
+        grid-template-columns: 33% 33% 33%;  
+    }
 `;
 
 const ContenedorLI = styled.li`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin: 10px 10px;
     padding: 1em;
     border: 1px solid #00B7FF;
@@ -42,6 +55,11 @@ const ContenedorLI = styled.li`
             background-color: #e10d0d;
         }
     }
+
+    img {
+       max-width: 100px;
+       max-height: auto;
+    }
 `;
 
 
@@ -67,9 +85,17 @@ const Archivos = () => {
             archivos.map(archivo => (
                <ContenedorLI 
                     key={archivo._id}
-               >
-                   <p>Titulo: {archivo.nombre}</p>
-                   <p>Creado el: {horaMes(archivo.creado)}</p>
+               >    
+                   <div>
+                    <img src={archivo.location} />
+                   </div>
+                   
+                   <div>
+                    <p>Titulo: {archivo.nombre}</p>
+                    <p>Creado el: {horaMes(archivo.creado)}</p>
+                   </div>
+               
+               
                    <button onClick={() => eliminarArchivo(archivo._id)}>Eliminar</button>
                 {/* <button> Descargar </button> */}
                </ContenedorLI>

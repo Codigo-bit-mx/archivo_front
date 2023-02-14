@@ -20,6 +20,9 @@ const ArchivoSchema = Schema({
           type: Boolean,
           default: true
       },
+      location: {
+          type: String, 
+      },
       creado: {
           type: Date,
           default: Date.now()

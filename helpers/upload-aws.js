@@ -25,14 +25,22 @@ const uploadToBucket = (nameBucket, file) => {
 
 
 const deleteFileToBucket = (nameBucket, nombre) => {
-    // console.log(nameBucket)
-    // console.log(nombre)
+   
     const params = {
         Bucket: nameBucket,
         Key: nombre,
-        VersionId: 'null'
     };
-    return storage.deleteObject(params).promise();
+
+    console.log(params)
+
+   const respuesta = storage.deleteObject(params, function(err, data) {
+    if(err) console.log('hola mundo error', err, err.stack)
+    else console.log(data)
+   }).promise();
+   
+   console.log(respuesta)
+
+   return respuesta
 } 
 
 

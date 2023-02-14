@@ -5,8 +5,10 @@ import {
     OBTENER_ARCHIVOS,
     ELIMINAR_ARCHIVO,
     REGRESAR_CAMBIO_ARCHIVO,
+    LOADING,
     ALERTAS_ACTUALIZACION_USER,
-    LIMPIAR_ALERTAS_USER
+    LIMPIAR_ALERTAS_USER,
+    CERRAR_SESION_ARCHIVOS
 } from '../../types';
 
 
@@ -16,6 +18,7 @@ const initialState = {
     cambios: false,
     alerta: false,
     msg: '',
+    loading: false
 }
 
 
@@ -40,7 +43,7 @@ const userReducer = (state = initialState, action) => {
         case SUBIDA_ARCHIVO:
              return{
                 ...state,
-                cambiosInArchivos: true
+                cambiosInArchivos: true, 
                 }
         
         case OBTENER_ARCHIVOS:
@@ -61,18 +64,36 @@ const userReducer = (state = initialState, action) => {
                 cambiosInArchivos: false
             }
         
+        case LOADING: 
+            return{
+                ...state, 
+                loading: true
+            }
+
         case ALERTAS_ACTUALIZACION_USER:
             return {
                 ...state,
                 msg: action.payload,
-                alerta: true
+                alerta: true,
+                loading: false
             }
 
         case LIMPIAR_ALERTAS_USER: 
             return{
                 ...state,
                 msg:'',
-                alerta: false
+                alerta: false,    
+            }
+
+        case CERRAR_SESION_ARCHIVOS:
+            return{
+                ...state,
+                archivos: [],
+                cambiosInArchivos: false,
+                cambios: false,
+                alerta: false,
+                msg: '',
+                loading: false
             }
 
         default:

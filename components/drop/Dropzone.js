@@ -53,25 +53,82 @@ const Parrafo = styled.p`
  text-align: center;
  font-family: 'Poppins', sans-serif;
 `;
-
 const ContainerBTN = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+const ContainerLoading = styled.section`
+    min-width: 200px;
+    // width: 33.33%;
+    height: 200px;
+    padding: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.3s linear;
+    &:nth-child(2n + 1){
+    background: rgba(#000,0.1);
+    }
+    &:hover {
+        background: rgba(#000,0.3) ;
+    }
+
+    @media (max-width: 768px ) {
+    width: 50%;
+    }
+    @media (max-width: 480px) {
+    width: 100%;
+    }
+`;
+
+const Loading = styled.span`
+    width: 48px;
+    height: 48px;
+    border: 1px solid #000; 
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    animation: rotation 1s linear infinite;
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50% , -50%);
+        width:  40px;
+        height:  40px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-bottom-color: #ff3d00;
+      }
+
+    @keyframes rotation {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg) }
+  }
 `;
 
 const Button = styled.button`
     margin: 0 auto;
-    width: 40%;
+    width: 25%;
     margin: 5px auto 1em auto;
     background-color: #171717;
     padding: 7px 8px;
     color: white;
-    border-radius: 8px;
+    border-radius: 6px;
     transition: .2s ease-out;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
     &:hover{
-        background-color: #1f4f90;
+        background-color: white;
+        color: black
     }
 `;
 const BtnN = styled.button `
@@ -106,17 +163,16 @@ const Input = styled.input`
 const Dropzone = () => {
 
     const dispatch = useDispatch();
+    const dateUserState = useSelector(state => state.user)
+    const { loading } = dateUserState
+    
     const subirArchivo = (archivo) => dispatch ( subirArchivoAction(archivo) );
 
     const [ archivo, setArchivo ] = useState();
+    const [ p, setP ] = useState(true)
 
     const onDropAccepted = useCallback( async (acceptedFiles) => {
-        // const cloudPreset = 'ml_default';
-        // formData.append('upload_preset', cloudPreset);
         setArchivo(  acceptedFiles[0] );
-        // console.log(archivo);
-        // subirArchivo(archivo);
-        // return archivo
     }, []);
 
     const onDropCancel = () => {
@@ -129,13 +185,11 @@ const Dropzone = () => {
         if(!archivo) {
             return 
         }
-        console.log("en carga", archivo)
         const file = new FormData()
         file.append('archivo', archivo)
         subirArchivo(file)
     }
 
-  
     const { getRootProps,
             getInputProps,
             isDragActive,
@@ -144,24 +198,8 @@ const Dropzone = () => {
             acceptedFiles,
             open } = useDropzone({onDropAccepted});
 
-    
-//    const files = useEffect(() => {
-// //    console.log(archivo)
-//     if(archivo) {
-//         console.log(archivo)
-//      return  archivo.map(file => (
-//            <li key={file.path}>
-//             <Parrafo> Imagen anterior: {file.path} - {file.size} bytes </Parrafo>
-//            </li>
-//       ));
-//    } 
-             
-//     }, [archivo])
- 
-
     return ( 
    
-
     <Section>
 
         <Drop
@@ -177,30 +215,43 @@ const Dropzone = () => {
             <Lista>
                 {archivo ? <li key={archivo.path}> 
                  <Parrafo> Imagen anterior: {archivo.path} - {archivo.size} bytes </Parrafo>
-                 </li> : null}
+                 </li> : null }
             </Lista>
         </aside>
 
         <ContainerBTN>
-        <Button type="button" 
-                 onClick={ open }
-                >
-           Abrir Fichero
-        </Button>
+
+        {!loading ? (
+             <>
+             <Button type="button" 
+              onClick={ open }
+             >
+                Abrir Fichero
+            </Button>
 
 
-        <Button type="button" 
-                 onClick={ onDropCancel }
-                >
-            Eliminar
-        </Button>
+            <Button type="button" 
+                    onClick={ onDropCancel }
+                    >
+                Eliminar
+            </Button>
 
 
-        <Button type="button" 
-                 onClick={ cargar }
-                >
-            Cargar
-        </Button>
+            <Button type="button" 
+                    onClick={ cargar }
+                    >
+                Subir
+            </Button>
+            </>
+        ) : (
+            <ContainerLoading>
+            <Loading></Loading>
+           </ContainerLoading>
+        )}
+
+       
+
+      
         </ContainerBTN>
 
      

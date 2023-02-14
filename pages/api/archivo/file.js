@@ -44,7 +44,7 @@ file.post(async (req, res) => {
         const file = files.archivo;
         
          //carga solo texto plano txt
-         const extencionValida = ['txt', 'jpeg', 'png', 'JPEG'];
+         const extencionValida = ['txt', 'jpg', 'jpeg', 'png', 'JPEG'];
          const nameCorte  = files.archivo.originalFilename.split('.');
          const extencion = nameCorte[nameCorte.length-1];
 
@@ -62,6 +62,7 @@ file.post(async (req, res) => {
          }
         const nombre = usuario.nombre;
         const result = await uploadToBucket(nameBucket, file);
+        console.log(result)
         if( !result ){
             return res.status(200).json({
                 msg: "Existio un error en aws"
@@ -75,6 +76,7 @@ file.post(async (req, res) => {
         archivo.dueño = nombre;
         archivo.referencia = referencia;
         archivo.nombre = namefile;
+        archivo.location = result.Location
         await archivo.save();
 
         res.status(200).json({
@@ -89,29 +91,28 @@ file.put(async (req, res) => {
   await dbConexion();
   const nameBucket = process.env.BUCKET_NAME;
   const { id } = req.query;
-  console.log(nameBucket)
-  console.log(id);
+ 
   const fecha = new Date();
 
   try{
       //borron en aws
       const dato =  await Archivo.findById(id);
       const nombre =  dato.nombre;
-      console.log(nombre)
-      const result = await deleteFileToBucket(nameBucket, nombre);
-      console.log(result)
-      if(!result){
-          res.status(400).json({
-              msg: "existe un problema con aws"
-          })
-      }
+     
+      // const result = await deleteFileToBucket(nameBucket, nombre);
+     
+      // if(!result){
+      //     res.status(400).json({
+      //         msg: "existe un problema con aws"
+      //     })
+      // }
       await Archivo.findByIdAndUpdate(id, {estado: false, borrado: fecha}); 
       res.status(200).json({
           msg: "Archivo eliminado correctamente"
       })
   }catch(err){
     res.status(400).json({
-      msg: "Exisio un problema al borrar el archivo"
+      msg: "Existio un problema al borrar el archivo"
   })
   }
 })
