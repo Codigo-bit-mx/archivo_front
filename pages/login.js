@@ -61,7 +61,7 @@ const CampoForm = styled.div`
     align-items: center;
 
     input[type="email"] {
-        
+        width: 100%;
         border: 1px solid #e1e1e1;
         padding: 14px;
         flex: 1;
@@ -74,7 +74,7 @@ const CampoForm = styled.div`
     }
     
     input[type="password"]{
-        
+        width:100%;
         border: 1px solid #e1e1e1;
         padding: 14px;
         flex: 1;

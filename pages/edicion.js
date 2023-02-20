@@ -6,128 +6,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 
-const ContenedorEdicion = styled.div`
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-`;
 
-const FormEdicion = styled.div`
-    background-color: #171717;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-`;
-
-const ContenedorForm = styled.div`
-    width: 100%;
-    max-width: 450px;
-    padding: 1em;
-    list-style: none;
-    color: white;
-
-    @media(min-width: 768px){
-        margin-top: 1em;
-        padding: 2em;
-        border: 1px solid white;
-        border-radius: 12px;
-    }
-    
-    p{
-        font-size: 14px;
-        cursor: pointer;
-    }
-`;
-
-const Form = styled.form`
-    display: grid;
-    grid-template-columns: auto;
-    color: white;
-
-    label{
-        margin: 6px 0;
-        font-size: 14px;
-    }
-
-    input{
-        margin: 5px 0;
-        border: 0;
-        color: white;
-        background: transparent;
-        padding: 10px;
-        outline: 0;
-        font-size: 14px;
-        border-bottom: 2px solid #00B7FF;
-          
-        &:focus{
-        border-bottom: 2px solid #828282;
-        }
-        &:valid + .label, &:focus + .label{
-        top: 1em;
-        left: 1em;
-        font-size: .9em;
-      }
-    }
-
-    input::placeholder{
-        color: white;
-        font-family: "Font Awesome 5 Free";
-    }
-
-    button{
-        margin: 2em 2em 0em 2em;
-        color: white;
-        background: #00B7FF;
-        padding: 10px 0;
-        border: 0;
-        border-radius: 12px;
-        transition: .2s ease-out;
-        cursor: pointer;
-       
-       &:hover{
-        background: #006c96;
-       }
-       }
-
-       textarea{
-        margin: 10px 0;
-        border: 0;
-        color: white;
-        background: transparent;
-        padding: 10px;
-        outline: 0;
-        font-size: 14px;
-        border-bottom: 2px solid #00B7FF;
-        resize:none;
-          
-        &:focus{
-        border-bottom: 2px solid #828282;
-        }
-        &:valid + .label, &:focus + .label{
-        top: 1em;
-        left: 1em;
-        font-size: .9em;
-       }
-    }
-`;
-
-const Alarma = styled.div`
-    margin: 1em auto 0em auto;
-    width: 90%;
-    border: 1px solid #e01919;
-    padding: 10px 5px;
-    border-radius: 12px;
-
-    p{
-        text-align: center;
-        color: white;
-        font-size: 12px;
-        margin: 0;
-    }
-`;
 
 const Edicion = () => {
 const router = useRouter();
@@ -267,3 +146,125 @@ const back = () => {
 export default Edicion;
     
 
+const ContenedorEdicion = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+`;
+
+const FormEdicion = styled.div`
+    background-color: #171717;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+`;
+
+const ContenedorForm = styled.div`
+    width: 100%;
+    max-width: 450px;
+    padding: 1em;
+    list-style: none;
+    color: white;
+
+    @media(min-width: 768px){
+        margin-top: 1em;
+        padding: 2em;
+        border: 1px solid white;
+        border-radius: 12px;
+    }
+    
+    p{
+        font-size: 14px;
+        cursor: pointer;
+    }
+`;
+
+const Form = styled.form`
+    display: grid;
+    grid-template-columns: auto;
+    color: white;
+
+    label{
+        margin: 6px 0;
+        font-size: 14px;
+    }
+
+    input{
+        margin: 5px 0;
+        border: 0;
+        color: white;
+        background: transparent;
+        padding: 10px;
+        outline: 0;
+        font-size: 14px;
+        border-bottom: 2px solid #00B7FF;
+          
+        &:focus{
+        border-bottom: 2px solid #828282;
+        }
+        &:valid + .label, &:focus + .label{
+        top: 1em;
+        left: 1em;
+        font-size: .9em;
+      }
+    }
+
+    input::placeholder{
+        color: white;
+        font-family: "Font Awesome 5 Free";
+    }
+
+    button{
+        margin: 2em 2em 0em 2em;
+        color: white;
+        background: #00B7FF;
+        padding: 10px 0;
+        border: 0;
+        border-radius: 12px;
+        transition: .2s ease-out;
+        cursor: pointer;
+       
+       &:hover{
+        background: #006c96;
+       }
+       }
+
+       textarea{
+        margin: 10px 0;
+        border: 0;
+        color: white;
+        background: transparent;
+        padding: 10px;
+        outline: 0;
+        font-size: 14px;
+        border-bottom: 2px solid #00B7FF;
+        resize:none;
+          
+        &:focus{
+        border-bottom: 2px solid #828282;
+        }
+        &:valid + .label, &:focus + .label{
+        top: 1em;
+        left: 1em;
+        font-size: .9em;
+       }
+    }
+`;
+
+const Alarma = styled.div`
+    margin: 1em auto 0em auto;
+    width: 90%;
+    border: 1px solid #e01919;
+    padding: 10px 5px;
+    border-radius: 12px;
+
+    p{
+        text-align: center;
+        color: white;
+        font-size: 12px;
+        margin: 0;
+    }
+`;

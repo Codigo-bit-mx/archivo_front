@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { subirArchivoAction } from '../../redux/actions/userAction';
 
 
+
 const Section = styled.section`
     width: 90%;
-    margin: 1em auto;
+    margin: 3em auto;
 
 `;
 
@@ -28,12 +29,12 @@ const Drop = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    padding: 30px;
     border-width: 2px;
     border-radius: 2px;
     border-color: ${props => getColor(props)};
     border-style: dashed;
-    background-color: #fafafa;
+    background-color: #171717;
     color: #bdbdbd;
     outline: none;
     transition: border .24s ease-in-out;
