@@ -1,11 +1,16 @@
 import React, {useEffect} from 'react'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux';
+import { cerrar_sesion_archivo } from '../../redux/actions/userAction';
+import { cerrarSesionAction } from '../../redux/actions/authAction';
 import { FiLogOut } from "react-icons/fi";
+import { BsSearch } from "react-icons/bs";
 
 const Busqueda = () => {
-    
-    const cerrarSesionArchivo = () => dispatch(cerrar_sesion_archivo())
+    const router = new useRouter;
+    const dispatch = useDispatch();
+    const cerrarSesionArchivo = () => dispatch(cerrar_sesion_archivo())
     const cerrarSesion = () => dispatch(cerrarSesionAction());
     const datosUser = useSelector(state => state.auth.usuario);
     const {nombre, img} = datosUser;
@@ -30,12 +35,15 @@ const Busqueda = () => {
     <ContenedorBusqueda>
    
              <CampoForm>
+               <span>
+                <BsSearch />
+               </span>
                <input
                  type="text"
                  id="text"
                  name=""
                     //   value={email}
-                 placeholder="Busca tu archivo"
+                 placeholder=" Busca tu archivo"
                     //   onChange = { datosForm }
                />
             </CampoForm>
@@ -44,11 +52,11 @@ const Busqueda = () => {
             <BTNimport> Import </BTNimport>
         </div>
 
-        <ContenedorIcon>
+        <ContenedorIcon onClick={ cerrar_sesion }>
             <i> <FiLogOut /> </i>
         </ContenedorIcon>
 
-        <ContenedorIMG>
+        <ContenedorIMG onClick={cambioEdicion}>
            <img src={img}  />
         </ContenedorIMG>
 
@@ -70,15 +78,15 @@ const ContenedorBusqueda = styled.div`
 
 const CampoForm = styled.div`
     display: flex;
-    margin: 1em 2em 1em 2em;
+    margin: 1em 0em 1em 0em;
     padding: 2px;
     align-items: center;
-    width: 90%;
+    width: 95%;
 
     input[type="text"] {
         background-color: #212121;
         border: 1px solid #6d6d6d;
-        padding: 11px;
+        padding: 11px 23px;
         flex: 1;
         border-radius: 8px;
         outline: none;
@@ -88,9 +96,13 @@ const CampoForm = styled.div`
         color: white;
     }
 
-    // p{
-    //     color: white;
-    // }
+    span{
+        position: absolute;
+        display: block;
+        margin-left: 8px;
+        color: #7f7f7f;
+
+    }
 `;
 
 const ContenedorIMG = styled.div`
@@ -109,10 +121,10 @@ const ContenedorIMG = styled.div`
 
 const BTNimport = styled.button`
     width: 100%;
-    background-color: #2F80ED;
+    background-color: #00B7FF;
     color: white;
     padding: 10px 5px;
-    border: 1px solid #2F80ED;
+    border: 1px solid #00B7FF;
     border-radius: 8px;
     outline: none;
     font-family: 'Poppins',sans-serif;

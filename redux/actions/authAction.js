@@ -47,22 +47,22 @@ export function iniciarSesionAction(usuario) {
         
         }catch(error){
             
-            if(!error.response.data){
-                dispatch({
-                    type: LOGIN_ERROR,
-                    payload: 'Problemas de conexión'
-                });
-            }
-            dispatch({
-                type: LOGIN_ERROR,
-                payload: error.response.data.msg
-            });
+            // if(!error.response.data){
+            //     dispatch({
+            //         type: LOGIN_ERROR,
+            //         payload: 'Problemas de conexión'
+            //     });
+            // }
+            // dispatch({
+            //     type: LOGIN_ERROR,
+            //     payload: error.response.data.msg
+            // });
 
-            setTimeout(() => {
-                dispatch({
-                    type: LIMPIAR_ERROR_ALERTA
-                })
-            }, 2000);
+            // setTimeout(() => {
+            //     dispatch({
+            //         type: LIMPIAR_ERROR_ALERTA
+            //     })
+            // }, 2000);
         }
     }
 }

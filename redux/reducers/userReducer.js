@@ -3,6 +3,7 @@ import {
     CAMBIO,
     SUBIDA_ARCHIVO,
     OBTENER_ARCHIVOS,
+    OBTENER_ARCHIVO,
     ELIMINAR_ARCHIVO,
     REGRESAR_CAMBIO_ARCHIVO,
     LOADING,
@@ -14,6 +15,7 @@ import {
 
 const initialState = {
     archivos: [],
+    archivo: null,
     cambiosInArchivos: false,
     cambios: false,
     alerta: false,
@@ -50,6 +52,12 @@ const userReducer = (state = initialState, action) => {
             return{
                 ...state,
                 archivos: action.payload
+            }
+        
+        case OBTENER_ARCHIVO:
+            return{
+                ...state, 
+                archivo: state.archivos.find( x => x._id === action.payload ) 
             }
         
         case ELIMINAR_ARCHIVO:
@@ -89,6 +97,7 @@ const userReducer = (state = initialState, action) => {
             return{
                 ...state,
                 archivos: [],
+                archivo: null,
                 cambiosInArchivos: false,
                 cambios: false,
                 alerta: false,

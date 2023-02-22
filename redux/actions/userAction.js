@@ -3,6 +3,7 @@ import {
     SUBIDA_ARCHIVO,
     CAMBIO,
     OBTENER_ARCHIVOS,
+    OBTENER_ARCHIVO,
     ELIMINAR_ARCHIVO,
     REGRESAR_CAMBIO_ARCHIVO,
     LOADING,
@@ -61,7 +62,7 @@ export function actualizarDatosAction(id, imguser, newdateuser) {
     }
 }
 
-const actualizarImgAction = async(imguser) => {
+export const actualizarImgAction = async(imguser) => {
     const token = localStorage.getItem('token');
     if(token){
         tokenAuth(token);
@@ -91,7 +92,6 @@ const actualizarImgAction = async(imguser) => {
             }, 2000)
         }
 }
-
 
 export function subirArchivoAction (datos) {
     
@@ -182,6 +182,44 @@ export function obtenerArchivosAction () {
             }, 2000)
         }
 
+    }
+}
+
+export function obtenerArchivo (id) {
+    return async (dispatch) => {
+        const token = localStorage.getItem('token');
+        if(token) {
+            tokenAuth(token);
+        }
+
+        console.log('en action', id)
+
+        try{
+            // const respuesta = await clienteAxios.post('/api/archivo/selectionfile', {id})
+            // console.log(respuesta)
+            dispatch({
+                type: OBTENER_ARCHIVO,
+                payload: id
+            })
+
+        }catch(error){
+            if(!error){
+                dispatch({
+                    type: ALERTAS_ACTUALIZACION_USER,
+                    payload: 'Problemas de conexión'
+                })
+            }
+            // dispatch({
+            //     type: ALERTAS_ACTUALIZACION_USER,
+            //     payload: error.response.data.msg
+            // })
+
+            // setTimeout(() => {
+            //     dispatch({
+            //         type : LIMPIAR_ALERTAS_USER
+            //     })
+            // }, 2000)
+        }
     }
 }
 

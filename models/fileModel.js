@@ -23,6 +23,12 @@ const ArchivoSchema = Schema({
       location: {
           type: String, 
       },
+      extension: {
+        type: String,
+      },
+      size: {
+        type: String
+      },
       creado: {
           type: Date,
           default: Date.now()

@@ -56,7 +56,7 @@ export default async function handler(req, res) {
 
     // compara la contraseña
     const validarPassword = bycript.compareSync(password, usuario.password);
-    console.log(validarPassword)
+    
     if(!validarPassword){
         return res.status(400).json({
             msg: "El password es incorrecto"
@@ -70,7 +70,7 @@ export default async function handler(req, res) {
     })
 
     } catch(error) {
-      res.json({
+      res.status(400).json({
         msg: "ocurrio algo con este endpoint comunicate con el admin"
     }); 
   }    

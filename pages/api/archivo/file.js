@@ -42,8 +42,8 @@ file.post(async (req, res) => {
         resolve({fields, files});
         
         const file = files.archivo;
-        
-         //carga solo texto plano txt
+         
+         const pesofile = (files.archivo.size / Math.pow(10, 6)).toFixed();
          const extencionValida = ['txt', 'jpg', 'jpeg', 'png', 'JPEG'];
          const nameCorte  = files.archivo.originalFilename.split('.');
          const extencion = nameCorte[nameCorte.length-1];
@@ -62,7 +62,7 @@ file.post(async (req, res) => {
          }
         const nombre = usuario.nombre;
         const result = await uploadToBucket(nameBucket, file);
-        console.log(result)
+        // console.log(result)
         if( !result ){
             return res.status(200).json({
                 msg: "Existio un error en aws"
@@ -75,6 +75,8 @@ file.post(async (req, res) => {
         archivo.creador = id;
         archivo.dueño = nombre;
         archivo.referencia = referencia;
+        archivo.extension = extencion;
+        archivo.size = pesofile;
         archivo.nombre = namefile;
         archivo.location = result.Location
         await archivo.save();

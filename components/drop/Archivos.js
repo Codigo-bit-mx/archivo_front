@@ -1,20 +1,20 @@
 import React, {useEffect} from 'react';
 import styled             from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { obtenerArchivosAction, 
+import { obtenerArchivosAction,
+         obtenerArchivo, 
          eliminarArchivoAction }    from '../../redux/actions/userAction';
 import { horaMes } from '../../helpers/horaMes';
 import {css} from '@emotion/react';
-
 import Busqueda from './Busqueda';
-
-
+import { BsFillImageFill, BsTrashFill, BsStarFill } from "react-icons/bs";
 
 
 const Archivos = () => {
 
     const dispatch = useDispatch();
     const obtenerArchivos = () => dispatch( obtenerArchivosAction() );
+    const obtenerfile = (id) => dispatch(obtenerArchivo(id))
     const eliminarArchivo = (id) => dispatch( eliminarArchivoAction(id))
 
     const files = useSelector(state => state.user);
@@ -22,6 +22,13 @@ const Archivos = () => {
     const datosUser = useSelector(state => state.auth.usuario);
     const {nombre, img} = datosUser;
     
+
+    const selectionfile = (id) => {
+        obtenerfile(id)
+        // console.log(archivos)
+        // const a = archivos.find(x => x._id === id)
+        // console.log(a)
+    }
 
     useEffect(() => {
         obtenerArchivos();
@@ -32,33 +39,43 @@ const Archivos = () => {
     return (  
    <>
     <Busqueda />
+
      <ContenedorTitle>
         <h4>Biblioteca de {nombre}</h4>
      </ContenedorTitle>
 
-    <ContenedorUL>  
+     {/* menu filtro */}
 
+    <ContenedorUL>  
 
         { 
             archivos.map(archivo => (
                <ContenedorLI 
                     key={archivo._id}
+                    onClick={ () => selectionfile(archivo._id) }
                >    
-                   <div>
-                    <img src={archivo.location} />
-                   </div>
+                   <ContenedorIcons> 
+                        <div> <Icons><BsStarFill /></Icons> </div> 
+                        <div> <Icons onClick={() => eliminarArchivo(archivo._id)}><BsTrashFill /></Icons> </div> 
+                   </ContenedorIcons>
+
+                   <ContenedorCentro>
                    
-                   <div>
-                    <p>Titulo: {archivo.nombre}</p>
-                    <p>Creado el: {horaMes(archivo.creado)}</p>
-                   </div>
+                   <Icons> <BsFillImageFill /> </Icons>
+                    <p>{archivo.extension.toUpperCase()}</p>
+                    <p>{archivo.size}MB</p>
+                   
+                   </ContenedorCentro>
+                   
+                   <ContenedorTitulo>
+                    <p>{archivo.nombre}</p>
+                    <p>{horaMes(archivo.creado)}</p>
+                   </ContenedorTitulo>
                
-               
-                   <button onClick={() => eliminarArchivo(archivo._id)}>Eliminar</button>
-                {/* <button> Descargar </button> */}
                </ContenedorLI>
             ))
         }
+
     </ContenedorUL>
 
   </>   
@@ -68,7 +85,7 @@ const Archivos = () => {
 export default Archivos;
 
 const ContenedorTitle = styled.div`
-    width: 100% ;
+   
     margin: 0 2em 0 2em;
     h4{
       color: white;   
@@ -94,40 +111,66 @@ const ContenedorUL = styled.ul`
 const ContenedorLI = styled.li`
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
     margin: 10px 10px;
     padding: 1em;
-    // border: 1px solid #00B7FF;
+    border: 1px solid #00B7FF;
+    border-radius: 8px;
     list-style: none;
     transition: transform .2s ease-in-out;
+    background-color: #232323;
+    cursor:pointer;
     &:hover{
         transform: scale(1.1); 
+    }  
+`;
+
+const ContenedorIcons = styled.div`
+    width: 100%;
+    display: flex;
+    margin-bottom: 6px;
+    flex-direction: row;
+    justify-content: space-between;
+
+    i{
+       color: #7f7f7f; 
+       width: 14px;
     }
-    
+`;
+
+const ContenedorCentro = styled.div`
+    width: 100%;
+    text-align:center;
+
     p{  
         text-align:center;
         font-size: 13px;
         font-family: 'Poppins', sans-serif;
         font-weight: bold;
-        color: white;
-    }
-
-    button {
-        background-color: #a90c0c;
-        border: none;
-        padding: 5px 8px;
-        color: white;
-        font-size: 13px;
-        transition: .2s ease-out;
-        cursor: pointer;
-        &:hover{
-            background-color: #e10d0d;
-        }
-    }
-
-    img {
-       max-width: 100px;
-       max-height: auto;
-    }
+        color: #7f7f7f;
+     }
+     
 `;
+
+const ContenedorTitulo = styled.div`
+width: 100%;
+
+p{  
+    text-align:center;
+    font-size: 11px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: white;
+ }
+
+`;
+
+const Icons = styled.i`
+    color: #7f7f7f;
+    font-size: 14px;
+    cursor: pointer;
+`;
+
+
+

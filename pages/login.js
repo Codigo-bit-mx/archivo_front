@@ -87,7 +87,7 @@ const CampoForm = styled.div`
 
     input::placeholder{
         color: #828282;
-        font-family: 'Poppins',sans-serif';
+        font-family: 'Poppins', sans-serif;
         font-size: 14px;
     }
 
@@ -196,7 +196,8 @@ const Login = (props) => {
 
     const envioDatos = (e) => {
         e.preventDefault();
-         if(email.trim() === '' || password.trim() === ''){
+        console.log(usuario)
+        if(email.trim() === '' || password.trim() === ''){
             alertaFront("Los datos estan incompletos");
             return;
             }
@@ -233,7 +234,7 @@ const Login = (props) => {
                 <p>Ingresa a tu perfil de DropBitMx descrubre sube, observa y elimina tus archivos</p>
 
             <form
-                onSubmit={envioDatos}
+                onSubmit={(e) => envioDatos(e)}
             >
                 <CampoForm>
                     <input
