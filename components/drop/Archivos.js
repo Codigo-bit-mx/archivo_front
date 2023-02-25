@@ -37,7 +37,7 @@ const Archivos = () => {
 
 
     return (  
-   <>
+   <ContenedorArchivo>
     <Busqueda />
 
      <ContenedorTitle>
@@ -78,11 +78,44 @@ const Archivos = () => {
 
     </ContenedorUL>
 
-  </>   
+  </ContenedorArchivo>   
     );
 }
  
 export default Archivos;
+
+const ContenedorArchivo = styled.div`
+    @media(min-width: 768px){
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+
+    ::-webkit-scrollbar:vertical {
+        width:2px;
+    }
+
+    ::-webkit-scrollbar-button:increment,
+    ::-webkit-scrollbar-button {
+        display: none;
+    } 
+
+    ::-webkit-scrollbar:horizontal {
+        height: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #00B7FF;
+        border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 10px;  
+    }
+`;
 
 const ContenedorTitle = styled.div`
    
@@ -93,6 +126,7 @@ const ContenedorTitle = styled.div`
     `
 
 const ContenedorUL = styled.ul`
+    height: auto;
     display: grid;
     grid-template-columns: 100%;
     width: 90%;

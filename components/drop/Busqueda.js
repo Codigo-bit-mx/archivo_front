@@ -49,7 +49,7 @@ const Busqueda = () => {
             </CampoForm>
 
         <div>
-            <BTNimport> Import </BTNimport>
+            <BTNimport> Importar </BTNimport>
         </div>
 
         <ContenedorIcon onClick={ cerrar_sesion }>

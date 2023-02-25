@@ -44,7 +44,7 @@ file.post(async (req, res) => {
         const file = files.archivo;
          
          const pesofile = (files.archivo.size / Math.pow(10, 6)).toFixed();
-         const extencionValida = ['txt', 'jpg', 'jpeg', 'png', 'JPEG'];
+         const extencionValida = ['txt', 'jpg', 'jpeg', 'png', 'JPEG', 'pdf'];
          const nameCorte  = files.archivo.originalFilename.split('.');
          const extencion = nameCorte[nameCorte.length-1];
 

@@ -55,7 +55,6 @@ const ContenedorForm = styled.div`
 `;
 
 const CampoForm = styled.div`
-   
     display: flex;
     margin-bottom: 2em;
     align-items: center;
@@ -70,7 +69,6 @@ const CampoForm = styled.div`
         font-family: 'Poppins',sans-serif;
         font-size: 16px;
         font-weight: 550;
-
     }
     
     input[type="password"]{

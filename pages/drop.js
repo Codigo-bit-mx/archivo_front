@@ -50,9 +50,12 @@ const Drop = () => {
             <Alerta />
            
             <Zone>
+               <Scrollzone>
                  <p>Dropbit</p>
-                 <p>Carga tus archivos en la linea punteada</p>
+                 <p>Lleva tus documentos o imagenes donde quiera, carga y almacena tus archivos en la nube de Dropbit </p>
                  <Dropzone />
+               </Scrollzone>
+              
 
 
                  {/* <div>
@@ -114,7 +117,7 @@ const Zone = styled.div`
 
     p{
         margin: 0em 0 3em 0;
-        padding: 3em 0 0 0;
+        padding: 3em 1em 0 1em;
         font-weight: bold;
         font-size: 14px;
         color: white;
@@ -122,10 +125,41 @@ const Zone = styled.div`
 
     @media(min-width: 768px){
         height: 100%;
-        border-right: 1px solid #6d6d6d;
-
+        border-right: 1px solid #3b3b3b;
+        overflow-y: auto;
     }
+
+        ::-webkit-scrollbar {
+            -webkit-appearance: none;
+        }
+
+        ::-webkit-scrollbar:vertical {
+            width:2px;
+        }
+
+        ::-webkit-scrollbar-button:increment,
+        ::-webkit-scrollbar-button {
+            display: none;
+        } 
+
+        ::-webkit-scrollbar:horizontal {
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #00B7FF;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            border-radius: 10px;  
+        }
 `; 
+
+const Scrollzone = styled.div`
+    height: auto;
+
+`;
 
 const ContenedorArchivos = styled.div`
     background-color: #171717;
@@ -142,5 +176,5 @@ const MenuNew = styled.div`
 const ContenedorDetalles = styled.div`
     background-color: #232323;
     height: 100%;
-    border-left: 1px solid #6d6d6d;
+    border-left: 1px solid #3b3b3b;
 `;

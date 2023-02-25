@@ -5,11 +5,118 @@ import { useDispatch, useSelector } from 'react-redux';
 import { subirArchivoAction } from '../../redux/actions/userAction';
 
 
+const Dropzone = () => {
+
+    const dispatch = useDispatch();
+    const dateUserState = useSelector(state => state.user)
+    const { loading } = dateUserState
+    
+    const subirArchivo = (archivo) => dispatch ( subirArchivoAction(archivo) );
+
+    const [ archivo, setArchivo ] = useState();
+    const [ p, setP ] = useState(true)
+
+    const onDropAccepted = useCallback( async (acceptedFiles) => {
+        setArchivo(  acceptedFiles[0] );
+    }, []);
+
+    const onDropCancel = () => {
+       if(archivo){
+           return setArchivo()
+       }
+    }
+
+    const cargar = () => {
+        if(!archivo) {
+            return 
+        }
+        const file = new FormData()
+        file.append('archivo', archivo)
+        subirArchivo(file)
+    }
+
+    const { getRootProps,
+            getInputProps,
+            isDragActive,
+            isDragAccept,
+            isDragReject,
+            acceptedFiles,
+            open } = useDropzone({onDropAccepted});
+
+    return ( 
+   
+    <Section>
+
+        <Drop
+        
+        {...getRootProps({isDragActive, isDragAccept, isDragReject})}>
+        <input {...getInputProps() } />
+        <Parrafo>Arrastra tu archivo sobre este recuadro</Parrafo>
+     
+        </Drop>
+        
+        <aside>
+            <Resumen>o</Resumen>
+            <Lista>
+                {archivo ? <li key={archivo.path}> 
+                 <Parrafo> Imagen anterior: {archivo.path} - {archivo.size} bytes </Parrafo>
+                 </li> : <Parrafo>Sin archivos en carga</Parrafo> }
+            </Lista>
+        </aside>
+
+        <ContainerBTN>
+
+        {!loading ? (
+             <>
+             <Button type="button" 
+              onClick={ open }
+             >
+                Abrir Fichero
+            </Button>
+
+
+            <Button type="button" 
+                    onClick={ onDropCancel }
+                    >
+                Eliminar
+            </Button>
+
+
+            <Button type="button" 
+                    onClick={ cargar }
+                    >
+                Subir
+            </Button>
+            </>
+        ) : (
+            <ContainerLoading>
+            <Loading></Loading>
+           </ContainerLoading>
+        )}
+
+       
+
+      
+        </ContainerBTN>
+
+     
+
+
+     </Section>
+
+   
+    ); 
+}
+ 
+export default Dropzone;
 
 const Section = styled.section`
     width: 90%;
-    margin: 3em auto;
-
+    margin: 0em auto;
+     
+    @media(min-width: 768px){
+        margin: 3em auto;
+    }
 `;
 
 const getColor = (props) => {
@@ -29,7 +136,7 @@ const Drop = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px;
+    padding: 60px 30px;
     border-width: 2px;
     border-radius: 2px;
     border-color: ${props => getColor(props)};
@@ -53,7 +160,9 @@ const Lista = styled.ul`
 const Parrafo = styled.p`
  text-align: center;
  font-family: 'Poppins', sans-serif;
+ font-size: 12px!important;
 `;
+
 const ContainerBTN = styled.div`
     display: flex;
     flex-direction: column;
@@ -118,18 +227,20 @@ const Loading = styled.span`
 
 const Button = styled.button`
     margin: 0 auto;
-    width: 25%;
+    width: 40%;
     margin: 5px auto 1em auto;
-    background-color: #171717;
+    background-color: #00B7FF;
     padding: 7px 8px;
     color: white;
+    border: 1px solid #00B7FF;
     border-radius: 6px;
     transition: .2s ease-out;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
+    
     &:hover{
         background-color: white;
-        color: black
+        color: black;
     }
 `;
 const BtnN = styled.button `
@@ -160,108 +271,3 @@ const Input = styled.input`
     border-radius: 8px;
     outline: none;
 `;
-
-const Dropzone = () => {
-
-    const dispatch = useDispatch();
-    const dateUserState = useSelector(state => state.user)
-    const { loading } = dateUserState
-    
-    const subirArchivo = (archivo) => dispatch ( subirArchivoAction(archivo) );
-
-    const [ archivo, setArchivo ] = useState();
-    const [ p, setP ] = useState(true)
-
-    const onDropAccepted = useCallback( async (acceptedFiles) => {
-        setArchivo(  acceptedFiles[0] );
-    }, []);
-
-    const onDropCancel = () => {
-       if(archivo){
-           return setArchivo()
-       }
-    }
-
-    const cargar = () => {
-        if(!archivo) {
-            return 
-        }
-        const file = new FormData()
-        file.append('archivo', archivo)
-        subirArchivo(file)
-    }
-
-    const { getRootProps,
-            getInputProps,
-            isDragActive,
-            isDragAccept,
-            isDragReject,
-            acceptedFiles,
-            open } = useDropzone({onDropAccepted});
-
-    return ( 
-   
-    <Section>
-
-        <Drop
-        
-        {...getRootProps({isDragActive, isDragAccept, isDragReject})}>
-        <input {...getInputProps() } />
-        <Parrafo>Arrastra tu archivo sobre este recuadro</Parrafo>
-     
-        </Drop>
-        
-        <aside>
-            <Resumen>o</Resumen>
-            <Lista>
-                {archivo ? <li key={archivo.path}> 
-                 <Parrafo> Imagen anterior: {archivo.path} - {archivo.size} bytes </Parrafo>
-                 </li> : null }
-            </Lista>
-        </aside>
-
-        <ContainerBTN>
-
-        {!loading ? (
-             <>
-             <Button type="button" 
-              onClick={ open }
-             >
-                Abrir Fichero
-            </Button>
-
-
-            <Button type="button" 
-                    onClick={ onDropCancel }
-                    >
-                Eliminar
-            </Button>
-
-
-            <Button type="button" 
-                    onClick={ cargar }
-                    >
-                Subir
-            </Button>
-            </>
-        ) : (
-            <ContainerLoading>
-            <Loading></Loading>
-           </ContainerLoading>
-        )}
-
-       
-
-      
-        </ContainerBTN>
-
-     
-
-
-     </Section>
-
-   
-    ); 
-}
- 
-export default Dropzone;
