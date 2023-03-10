@@ -61,8 +61,7 @@ file.post(async (req, res) => {
              });
          }
         const nombre = usuario.nombre;
-        const result = await uploadToBucket(nameBucket, file);
-        // console.log(result)
+        const result = await uploadToBucket(nameBucket, file, nombre);
         if( !result ){
             return res.status(200).json({
                 msg: "Existio un error en aws"
@@ -71,13 +70,14 @@ file.post(async (req, res) => {
 
         const referencia = result.location;
         const namefile = result.key;
+        const nombrecorte = namefile.split('/')
         const archivo = new Archivo();
         archivo.creador = id;
         archivo.dueño = nombre;
         archivo.referencia = referencia;
         archivo.extension = extencion;
         archivo.size = pesofile;
-        archivo.nombre = namefile;
+        archivo.nombre = nombrecorte[1];
         archivo.location = result.Location
         await archivo.save();
 
@@ -101,13 +101,13 @@ file.put(async (req, res) => {
       const dato =  await Archivo.findById(id);
       const nombre =  dato.nombre;
      
-      // const result = await deleteFileToBucket(nameBucket, nombre);
+      const result = await deleteFileToBucket(nameBucket, nombre);
      
-      // if(!result){
-      //     res.status(400).json({
-      //         msg: "existe un problema con aws"
-      //     })
-      // }
+      if(!result){
+          res.status(400).json({
+              msg: "existe un problema con aws"
+          })
+      }
       await Archivo.findByIdAndUpdate(id, {estado: false, borrado: fecha}); 
       res.status(200).json({
           msg: "Archivo eliminado correctamente"
@@ -118,6 +118,7 @@ file.put(async (req, res) => {
   })
   }
 })
+
 
 
 export const config = {

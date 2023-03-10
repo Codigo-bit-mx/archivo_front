@@ -199,6 +199,7 @@ const Login = (props) => {
             alertaFront("Los datos estan incompletos");
             return;
             }
+            console.log("en el login ")
              iniciarSesion(usuario);    
         }
 

@@ -7,7 +7,7 @@ import { obtenerArchivosAction,
 import { horaMes } from '../../helpers/horaMes';
 import {css} from '@emotion/react';
 import Busqueda from './Busqueda';
-import { BsFillImageFill, BsTrashFill, BsStarFill } from "react-icons/bs";
+import { BsFillImageFill, BsTrashFill, BsStarFill, BsFillFileTextFill } from "react-icons/bs";
 
 
 const Archivos = () => {
@@ -41,7 +41,10 @@ const Archivos = () => {
     <Busqueda />
 
      <ContenedorTitle>
+        
         <h4>Biblioteca de {nombre}</h4>
+        {!archivos.length ? <h5>No existen archivos</h5>: null }
+    
      </ContenedorTitle>
 
      {/* menu filtro */}
@@ -61,7 +64,10 @@ const Archivos = () => {
 
                    <ContenedorCentro>
                    
-                   <Icons> <BsFillImageFill /> </Icons>
+                   <Icons> 
+                  {  (archivo.extension === 'pdf' || 'docx') ? <BsFillFileTextFill /> :  <BsFillImageFill /> }
+                   </Icons>
+                    
                     <p>{archivo.extension.toUpperCase()}</p>
                     <p>{archivo.size}MB</p>
                    
@@ -122,6 +128,9 @@ const ContenedorTitle = styled.div`
     margin: 0 2em 0 2em;
     h4{
       color: white;   
+    }
+    h5{
+        color: white;
     }
     `
 

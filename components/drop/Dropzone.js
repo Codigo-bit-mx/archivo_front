@@ -2,26 +2,29 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { subirArchivoAction } from '../../redux/actions/userAction';
+import { subirArchivoAction, cargar_archivo_memory} from '../../redux/actions/userAction';
 
 
 const Dropzone = () => {
 
     const dispatch = useDispatch();
+
     const dateUserState = useSelector(state => state.user)
-    const { loading } = dateUserState
+    const { loading, carga_archivo_en_memoria } = dateUserState
     
     const subirArchivo = (archivo) => dispatch ( subirArchivoAction(archivo) );
+    const archivo_en_memoria = (carga_archivo) => dispatch( cargar_archivo_memory(carga_archivo) )
 
     const [ archivo, setArchivo ] = useState();
-    const [ p, setP ] = useState(true)
-
+   
     const onDropAccepted = useCallback( async (acceptedFiles) => {
+        console.log(acceptedFiles[0])
         setArchivo(  acceptedFiles[0] );
+        // archivo_en_memoria( acceptedFiles[0] )
     }, []);
 
     const onDropCancel = () => {
-       if(archivo){
+       if( archivo ){
            return setArchivo()
        }
     }
@@ -74,13 +77,11 @@ const Dropzone = () => {
                 Abrir Fichero
             </Button>
 
-
             <Button type="button" 
                     onClick={ onDropCancel }
                     >
                 Eliminar
             </Button>
-
 
             <Button type="button" 
                     onClick={ cargar }
@@ -237,7 +238,7 @@ const Button = styled.button`
     transition: .2s ease-out;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
-    
+    cursor: pointer;
     &:hover{
         background-color: white;
         color: black;

@@ -4,6 +4,7 @@ import {
     CAMBIO,
     OBTENER_ARCHIVOS,
     OBTENER_ARCHIVO,
+    BUSQUEDA_ARCHIVO,
     ELIMINAR_ARCHIVO,
     REGRESAR_CAMBIO_ARCHIVO,
     LOADING,
@@ -220,6 +221,43 @@ export function obtenerArchivo (id) {
             //     })
             // }, 2000)
         }
+    }
+}
+
+export function busqueda_archivo (archivo) {
+
+    return async (dispatch) => {
+        try{
+           
+            // const resultado = await clienteAxios.post('/api/archivo/selectionfile', {archivo})  
+            console.log(archivo)
+            dispatch({
+                type: BUSQUEDA_ARCHIVO,
+                payload: resultado.data
+                
+            })
+
+        }catch (err){
+            if(!error){
+                dispatch({
+                    type: ALERTAS_ACTUALIZACION_USER,
+                    payload: 'Problemas de conexión'
+                })
+            }
+
+             dispatch({
+                type: ALERTAS_ACTUALIZACION_USER,
+                payload: error.response.data.msg
+            })
+
+            setTimeout(() => {
+                dispatch({
+                    type : LIMPIAR_ALERTAS_USER
+                })
+            }, 2000)
+        }
+      
+        
     }
 }
 

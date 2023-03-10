@@ -25,7 +25,7 @@ const Drop = () => {
     const auth = useSelector(state => state.auth);
     const { autenticado } = auth;
     const update = useSelector(state => state.user);
-    const {cambio} = update;
+    const { cambio } = update;
 
     useEffect(() => {
         if(!autenticado){
@@ -55,20 +55,6 @@ const Drop = () => {
                  <p>Lleva tus documentos o imagenes donde quiera, carga y almacena tus archivos en la nube de Dropbit </p>
                  <Dropzone />
                </Scrollzone>
-              
-
-
-                 {/* <div>
-                    <MenuNew>
-                        <i><FcSettings /></i>
-                        <p>Editar</p>
-                    </MenuNew>
-                    
-                    <MenuNew>
-                        <i><FiLogOut /></i>
-                        <p>Cerrar Session</p>
-                    </MenuNew>
-                 </div> */}
             </Zone>
 
 

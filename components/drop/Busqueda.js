@@ -1,25 +1,49 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useCallback, useState} from 'react'
 import { useRouter } from 'next/router'
+import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux';
-import { cerrar_sesion_archivo } from '../../redux/actions/userAction';
+
+import { busqueda_archivo, cerrar_sesion_archivo } from '../../redux/actions/userAction';
 import { cerrarSesionAction } from '../../redux/actions/authAction';
+import { cargar_archivo_memory } from '../../redux/actions/userAction';
 import { FiLogOut } from "react-icons/fi";
 import { BsSearch } from "react-icons/bs";
 
 const Busqueda = () => {
     const router = new useRouter;
     const dispatch = useDispatch();
-    const cerrarSesionArchivo = () => dispatch(cerrar_sesion_archivo())
-    const cerrarSesion = () => dispatch(cerrarSesionAction());
+    const busquedafile = (archivo) => dispatch(busqueda_archivo(archivo));
+    const cerrarSesionArchivo = () => dispatch( cerrar_sesion_archivo());
+    const cerrarSesion = () => dispatch( cerrarSesionAction());
+
     const datosUser = useSelector(state => state.auth.usuario);
     const {nombre, img} = datosUser;
     const update = useSelector(state => state.user);
-    const {cambio, msg} = update; 
+    const {cambio, msg, archivos} = update; 
 
-    // useEffect(() => {
-    //   obtenerUsuario()
-    // }, [cambio]);
+    const [busqueda, setBusqueda] = useState('')
+
+    const onDropAccepted = useCallback( async (acceptedFiles) => {
+        archivo_en_memoria( acceptedFiles[0] )
+    }, []);
+
+
+    const input_busqueda = (archivo) => {
+    // busquedafile(archivo)
+    
+    const file = archivo.split('') 
+    const filtrado = archivos.filter((elem, i)=> {
+        return file.every(caracter => {
+            return elem.nombre.includes(caracter)
+        })
+    })    
+     console.log(filtrado)
+     
+    }
+
+
+
 
     const cerrar_sesion = () => {
         cerrarSesionArchivo()
@@ -30,10 +54,19 @@ const Busqueda = () => {
         router.push('/edicion');
     }
 
+    const { getRootProps,
+        getInputProps,
+        isDragActive,
+        isDragAccept,
+        isDragReject,
+        acceptedFiles,
+        open } = useDropzone({onDropAccepted});
+
+
   return (
 
     <ContenedorBusqueda>
-   
+ 
              <CampoForm>
                <span>
                 <BsSearch />
@@ -41,15 +74,19 @@ const Busqueda = () => {
                <input
                  type="text"
                  id="text"
-                 name=""
-                    //   value={email}
+                 onKeyPress={ (e) => e.key === 'Enter' ? input_busqueda(e.target.value) : null }
+                 onChange={(e) => setBusqueda(e.target.value)}
+                 value={busqueda}
                  placeholder=" Busca tu archivo"
                     //   onChange = { datosForm }
                />
             </CampoForm>
 
         <div>
-            <BTNimport> Importar </BTNimport>
+            <BTNimport
+              type='button'
+               onClick={ open }
+            > Importar </BTNimport>
         </div>
 
         <ContenedorIcon onClick={ cerrar_sesion }>
@@ -86,7 +123,7 @@ const CampoForm = styled.div`
     input[type="text"] {
         background-color: #212121;
         border: 1px solid #6d6d6d;
-        padding: 11px 23px;
+        padding: 11px 30px;
         flex: 1;
         border-radius: 8px;
         outline: none;

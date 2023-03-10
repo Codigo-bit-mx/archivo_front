@@ -15,7 +15,8 @@ export const LOADING              = 'LOADING';
 //archivos del usuario 
 export const SUBIDA_ARCHIVO          = 'SUBIDA_ARCHIVO';
 export const OBTENER_ARCHIVOS        = 'OBTENER_ARCHIVOS';
-export const OBTENER_ARCHIVO         = 'OBTENER_ARCHIVO'
+export const OBTENER_ARCHIVO         = 'OBTENER_ARCHIVO';
+export const BUSQUEDA_ARCHIVO        = 'BUSQUEDA_ARCHIVO';
 export const ELIMINAR_ARCHIVO        = 'ELIMINAR_ARCHIVO';
 export const REGRESAR_CAMBIO_ARCHIVO = 'REGRESAR_CAMBIO_ARCHIVO';
 export const CERRAR_SESION_ARCHIVOS  = 'CERRAR_SESION_ARCHIVOS';

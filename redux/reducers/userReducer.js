@@ -4,6 +4,7 @@ import {
     SUBIDA_ARCHIVO,
     OBTENER_ARCHIVOS,
     OBTENER_ARCHIVO,
+    BUSQUEDA_ARCHIVO,
     ELIMINAR_ARCHIVO,
     REGRESAR_CAMBIO_ARCHIVO,
     LOADING,
@@ -15,6 +16,7 @@ import {
 
 const initialState = {
     archivos: [],
+    carga_archivo_en_memoria: null,
     archivo: null,
     cambiosInArchivos: false,
     cambios: false,
@@ -60,6 +62,14 @@ const userReducer = (state = initialState, action) => {
                 archivo: state.archivos.find( x => x._id === action.payload ) 
             }
         
+        
+        case BUSQUEDA_ARCHIVO:
+            return {
+                ...state,
+                archivos: state.archivos.find( x => x.nombre === action.payload)
+            
+            }
+
         case ELIMINAR_ARCHIVO:
             return{
                 ...state,

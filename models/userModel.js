@@ -19,7 +19,7 @@ const usuarioSchema = new Schema({
     },
     img: {
         type: String,
-        default: '/usuario.jpg'
+        default: 'https://res.cloudinary.com/codigobit/image/upload/v1673978179/conacoapp/avatar_fnfqux.png'
     },
     bio: {
         type:String,
