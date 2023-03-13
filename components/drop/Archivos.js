@@ -1,16 +1,17 @@
 import React, {useEffect} from 'react';
 import styled             from '@emotion/styled';
+import { BsFillImageFill, BsTrashFill, BsStarFill, BsFillFileTextFill } from "react-icons/bs";
 import { useDispatch, useSelector } from 'react-redux';
 import { obtenerArchivosAction,
          obtenerArchivo, 
          eliminarArchivoAction }    from '../../redux/actions/userAction';
 import { horaMes } from '../../helpers/horaMes';
-import {css} from '@emotion/react';
 import Busqueda from './Busqueda';
-import { BsFillImageFill, BsTrashFill, BsStarFill, BsFillFileTextFill } from "react-icons/bs";
-
+import ExtensionIcons from '../ui/ExtensionIcons'
 
 const Archivos = () => {
+
+    const extensionesValidas = ['txt', 'jpg', 'jpeg', 'png', 'JPEG', 'pdf', 'docx'];
 
     const dispatch = useDispatch();
     const obtenerArchivos = () => dispatch( obtenerArchivosAction() );
@@ -64,8 +65,10 @@ const Archivos = () => {
 
                    <ContenedorCentro>
                    
+                   
+
                    <Icons> 
-                  {  (archivo.extension === 'pdf' || 'docx') ? <BsFillFileTextFill /> :  <BsFillImageFill /> }
+                  { <ExtensionIcons extension={archivo.extension} /> }
                    </Icons>
                     
                     <p>{archivo.extension.toUpperCase()}</p>
@@ -76,6 +79,9 @@ const Archivos = () => {
                    <ContenedorTitulo>
                     <p>{archivo.nombre}</p>
                     <p>{horaMes(archivo.creado)}</p>
+
+                    <p> {  (archivo.extension === 'pdf' || 'docx' ) } </p>
+                   
                    </ContenedorTitulo>
                
                </ContenedorLI>

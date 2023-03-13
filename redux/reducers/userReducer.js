@@ -61,13 +61,11 @@ const userReducer = (state = initialState, action) => {
                 ...state, 
                 archivo: state.archivos.find( x => x._id === action.payload ) 
             }
-        
-        
+              
         case BUSQUEDA_ARCHIVO:
             return {
                 ...state,
-                archivos: state.archivos.find( x => x.nombre === action.payload)
-            
+                archivos: action.payload
             }
 
         case ELIMINAR_ARCHIVO:

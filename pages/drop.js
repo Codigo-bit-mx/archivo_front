@@ -52,7 +52,7 @@ const Drop = () => {
             <Zone>
                <Scrollzone>
                  <p>Dropbit</p>
-                 <p>Lleva tus documentos o imagenes donde quiera, carga y almacena tus archivos en la nube de Dropbit </p>
+                 <p>Carga y almacena tus archivos en la nube de Dropbit </p>
                  <Dropzone />
                </Scrollzone>
             </Zone>

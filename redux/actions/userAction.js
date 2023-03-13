@@ -224,16 +224,16 @@ export function obtenerArchivo (id) {
     }
 }
 
-export function busqueda_archivo (archivo) {
+export function busqueda_archivo (archivos) {
 
     return async (dispatch) => {
         try{
            
-            // const resultado = await clienteAxios.post('/api/archivo/selectionfile', {archivo})  
-            console.log(archivo)
+            console.log(archivos)
+            
             dispatch({
                 type: BUSQUEDA_ARCHIVO,
-                payload: resultado.data
+                payload: archivos
                 
             })
 

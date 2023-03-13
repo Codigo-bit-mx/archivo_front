@@ -59,7 +59,7 @@ const Dropzone = () => {
         </Drop>
         
         <aside>
-            <Resumen>o</Resumen>
+            {/* <Resumen>o</Resumen> */}
             <Lista>
                 {archivo ? <li key={archivo.path}> 
                  <Parrafo> Imagen anterior: {archivo.path} - {archivo.size} bytes </Parrafo>
@@ -95,9 +95,6 @@ const Dropzone = () => {
            </ContainerLoading>
         )}
 
-       
-
-      
         </ContainerBTN>
 
      
@@ -150,6 +147,7 @@ const Drop = styled.div`
 const Resumen = styled.h5`
     margin-top: 1.5em;
     text-align: center;
+    color: white;
 `;
 const Lista = styled.ul`
     margin-top: 1em;
@@ -217,7 +215,7 @@ const Loading = styled.span`
         height:  40px;
         border-radius: 50%;
         border: 3px solid transparent;
-        border-bottom-color: #ff3d00;
+        border-bottom-color: #00B7FF;
       }
 
     @keyframes rotation {

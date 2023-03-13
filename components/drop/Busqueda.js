@@ -30,16 +30,16 @@ const Busqueda = () => {
 
 
     const input_busqueda = (archivo) => {
-    // busquedafile(archivo)
-    
+       console.log("entro en busqueda")
     const file = archivo.split('') 
     const filtrado = archivos.filter((elem, i)=> {
         return file.every(caracter => {
             return elem.nombre.includes(caracter)
         })
-    })    
-     console.log(filtrado)
-     
+    })  
+
+    busquedafile(filtrado)
+   
     }
 
 
@@ -71,6 +71,7 @@ const Busqueda = () => {
                <span>
                 <BsSearch />
                </span>
+
                <input
                  type="text"
                  id="text"
@@ -85,8 +86,7 @@ const Busqueda = () => {
         <div>
             <BTNimport
               type='button'
-               onClick={ open }
-            > Importar </BTNimport>
+            > Buscar </BTNimport>
         </div>
 
         <ContenedorIcon onClick={ cerrar_sesion }>
@@ -119,8 +119,9 @@ const CampoForm = styled.div`
     padding: 2px;
     align-items: center;
     width: 95%;
-
-    input[type="text"] {
+    position: relative;
+    
+    input[type="text"] {   
         background-color: #212121;
         border: 1px solid #6d6d6d;
         padding: 11px 30px;
@@ -135,6 +136,7 @@ const CampoForm = styled.div`
 
     span{
         position: absolute;
+        z-index: 1;
         display: block;
         margin-left: 8px;
         color: #7f7f7f;
