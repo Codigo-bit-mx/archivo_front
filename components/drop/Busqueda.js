@@ -1,5 +1,4 @@
 import React, {useEffect, useCallback, useState} from 'react'
-import Image from  'next/image'
 import { useRouter } from 'next/router'
 import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components'
@@ -42,9 +41,6 @@ const Busqueda = () => {
     busquedafile(filtrado)
    
     }
-
-
-
 
     const cerrar_sesion = () => {
         cerrarSesionArchivo()
@@ -95,7 +91,7 @@ const Busqueda = () => {
         </ContenedorIcon>
 
         <ContenedorIMG onClick={cambioEdicion}>
-           <Image src={img}  />
+           <img src={img}  />
         </ContenedorIMG>
 
     </ContenedorBusqueda>
