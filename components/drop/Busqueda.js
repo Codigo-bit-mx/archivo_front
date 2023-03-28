@@ -1,6 +1,6 @@
 import React, {useEffect, useCallback, useState} from 'react'
+import Image from  'next/image'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux';
