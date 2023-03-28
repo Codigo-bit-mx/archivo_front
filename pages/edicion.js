@@ -72,7 +72,7 @@ const back = () => {
         <ContenedorForm>
         <p  onClick={() => back()}>  <FaArrowLeft /> Back</p>
         <h3>Edicion del perfil</h3>
-        <p>Cambia los datos que te interesen</p> 
+        <p>Cambia los datos que te interesen!</p> 
       
         <Form>
         <input 
