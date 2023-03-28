@@ -31,13 +31,13 @@ const Drop = () => {
         if(!autenticado){
             router.push('/');
         }   
-    }, [autenticado]);
+    }, [autenticado, router]);
 
     useEffect(() => {
       if(cambio){
           obtenerUsuario()
       }
-    }, [cambio])
+    }, [cambio, obtenerUsuario])
 
     return ( 
     <>

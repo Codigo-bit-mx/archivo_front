@@ -28,7 +28,7 @@ export default async function selectionfile(req, res) {
             }
             
             const busqueda = archivos.filter(elem => {
-                ret file.every(caracter => {
+                return file.every(caracter => {
                     console.log(elem.nombre.includes(caracter))
                 })     
                  

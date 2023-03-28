@@ -1,6 +1,7 @@
 import React, { useState, useEffect }          from 'react';
-import styled                       from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
+import Image                        from 'next/image';
+import styled                       from '@emotion/styled';
 import { AiFillCaretDown }          from "react-icons/ai";
 import { cerrarSesionAction, obtenerUsuarioAction } from '../../redux/actions/authAction';
 import { cerrar_sesion_archivo } from '../../redux/actions/userAction';
@@ -97,7 +98,7 @@ const Menu = () => {
 
     useEffect(() => {
       obtenerUsuario()
-    }, [cambio]);
+    }, [cambio, obtenerUsuario]);
 
     const cerrar_sesion = () => {
         cerrarSesionArchivo()
@@ -119,7 +120,7 @@ const Menu = () => {
 
            
             <ContenedorIMG>
-                <img src={img} />
+                <Image src={img} />
                 <p onClick={ () => abrirMenu() }>Hola, {nombre} <span> <AiFillCaretDown /></span> </p>
             </ContenedorIMG>
 

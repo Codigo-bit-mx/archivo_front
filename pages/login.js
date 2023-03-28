@@ -221,7 +221,7 @@ const Login = (props) => {
             } else if( token ){
                 obtenerUsuario();
             }
-        },[autenticado]);
+        },[autenticado, obtenerUsuario, router, token]);
 
 
     return ( 
@@ -288,7 +288,7 @@ const Login = (props) => {
             </ContenedorRedes>
 
             <NuevaCuenta>
-            <Link href='/newcuenta'> 
+            <Link passHref='/newcuenta'> 
             <p> Obtenen un cuenta aqui</p>
             </Link>
             </NuevaCuenta>

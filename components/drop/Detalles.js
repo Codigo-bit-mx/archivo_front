@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux'
+import Image from 'next/image'
 import styled from '@emotion/styled';
 import { horaMes } from '../../helpers/horaMes';
 import { FcDocument } from "react-icons/fc";
@@ -24,7 +25,7 @@ const Detalles = () => {
                 switch (extencion) {
                     case 'jpg':
                     case 'png':     
-                        return setExte( <img src={archivo.location} /> )              
+                        return setExte( <Image src={archivo.location} /> )              
 
                     case 'pdf': 
                         return setExte(
