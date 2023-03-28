@@ -221,7 +221,7 @@ const Login = (props) => {
             } else if( token ){
                 obtenerUsuario();
             }
-        },[autenticado, obtenerUsuario, router, token]);
+        },[autenticado]);
 
 
     return ( 

@@ -9,6 +9,145 @@ import { FaArrowLeft }              from "react-icons/fa";
 import { registroUsuarioAction }    from '../redux/actions/authAction';
 import { alertaFrontAction } from '../redux/actions/authAction';
 
+
+
+const NuevaCuenta = (props) => {
+   
+    const router = useRouter();
+
+    const onfocus = (e) => {
+        e.currentTarget.type = 'date';
+    }
+    const onblur = (e) => {
+        e.currentTarget.type = "text";
+        e.currentTarget.placeholder = "Fecha de cumpleaños";
+    } 
+
+    //estados globales
+     const dispatch = useDispatch();
+    //llamada a la accion de authAction
+     const registroUsuario = (usuario) => dispatch( registroUsuarioAction(usuario));
+     const alertaFront = ( errorfront ) => dispatch(alertaFrontAction(errorfront));
+
+    /* extraccion de valores del estado global*/
+       const auth = useSelector(state => state.auth);
+       const {autenticado, alerta, msgerror} = auth;
+   
+
+    //habilitar el effecto para enviar a otra pagina
+    useEffect(() => {
+        if(autenticado){    
+            router.push('/drop')
+        }
+    }, [autenticado]);
+
+
+    const [usuario, guardarUsuario] = useState({
+        nombre: '',
+        cumpleaños: '',
+        email: '',
+        password: ''
+    }) 
+    
+    const { nombre, cumpleaños, email, password } = usuario;
+
+    const cambioRegistro = (e) => {
+        guardarUsuario({
+            ...usuario,
+            [e.target.name] : e.target.value
+        });
+    };
+
+    const envioDatosNew = (e) => {
+        e.preventDefault();
+        if( nombre.trim() === '' || cumpleaños.trim() === '' || email.trim() === '' || password.trim() === '' ){
+            alertaFront("faltan datos para el registro");
+            return;
+        }
+        registroUsuario(usuario);
+    }
+    
+    return ( 
+
+        <FormUsuario>
+            
+        <ContenedorForm>
+            <Link passHref='/' >
+                <p><FaArrowLeft /> back </p>
+            </Link>
+
+            <h3>DropBitMx.!</h3>
+            <p>Crea una cuenta en DropBit y comienza a cargar tus archivos</p>
+
+        <form
+            onSubmit={envioDatosNew}  
+        >
+              <CampoForm>
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    value={nombre}
+                    placeholder="Ingresa tu nombre"
+                    onChange = {cambioRegistro}
+                />
+            </CampoForm>
+
+            <CampoForm>
+                <input
+                    type="text"
+                    id="cumpleaños"
+                    name="cumpleaños"
+                    value={cumpleaños}
+                    placeholder="Ingresa tu fecha de cumpleaños"
+                    onFocus = {onfocus}
+                    onBlur = {onblur}
+                    onChange = {cambioRegistro}
+                />
+            </CampoForm>
+
+            <CampoForm>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={email}
+                    placeholder="Ingresa tu email"
+                    onChange = {cambioRegistro}
+                />
+            </CampoForm>
+
+            <CampoForm>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    placeholder="Ingresa tu password"
+                    onChange = {cambioRegistro}
+                />
+            </CampoForm>
+
+             {alerta ? <Alarma><p>{msgerror}</p></Alarma> :null} 
+
+            <CampoForm>
+                <input
+                    type="submit"
+                    value="Crear cuenta"
+                />
+            </CampoForm>
+
+        </form>
+        </ContenedorForm>
+
+    </FormUsuario>
+        
+     );
+}
+ 
+export default NuevaCuenta;
+
+
 const FormUsuario = styled.div`
     background-color: #171717;
     height: 100vh;
@@ -133,139 +272,3 @@ const Alarma = styled.div`
         margin: 0;
     }
 `;
-
-const NuevaCuenta = (props) => {
-   
-    const router = useRouter();
-
-    const onfocus = (e) => {
-        e.currentTarget.type = 'date';
-    }
-    const onblur = (e) => {
-        e.currentTarget.type = "text";
-        e.currentTarget.placeholder = "Fecha de cumpleaños";
-    } 
-
-    //estados globales
-     const dispatch = useDispatch();
-    //llamada a la accion de authAction
-     const registroUsuario = (usuario) => dispatch( registroUsuarioAction(usuario));
-     const alertaFront = ( errorfront ) => dispatch(alertaFrontAction(errorfront));
-
-    /* extraccion de valores del estado global*/
-       const auth = useSelector(state => state.auth);
-       const {autenticado, alerta, msgerror} = auth;
-   
-
-    //habilitar el effecto para enviar a otra pagina
-    useEffect(() => {
-        if(autenticado){    
-            router.push('/drop')
-        }
-    }, [autenticado]);
-
-
-    const [usuario, guardarUsuario] = useState({
-        nombre: '',
-        cumpleaños: '',
-        email: '',
-        password: ''
-    }) 
-    
-    const { nombre, cumpleaños, email, password } = usuario;
-
-    const cambioRegistro = (e) => {
-        guardarUsuario({
-            ...usuario,
-            [e.target.name] : e.target.value
-        });
-    };
-
-    const envioDatosNew = (e) => {
-        e.preventDefault();
-        if( nombre.trim() === '' || cumpleaños.trim() === '' || email.trim() === '' || password.trim() === '' ){
-            alertaFront("faltan datos para el registro");
-            return;
-        }
-        registroUsuario(usuario);
-    }
-    
-    return ( 
-
-        <FormUsuario>
-            
-        <ContenedorForm>
-            <Link href='/' >
-                <p><FaArrowLeft /> back </p>
-            </Link>
-
-            <h3>DropBitMx.!</h3>
-            <p>Crea una cuenta en DropBit y comienza a cargar tus archivos</p>
-
-        <form
-            onSubmit={envioDatosNew}  
-        >
-              <CampoForm>
-                <input
-                    type="text"
-                    id="nombre"
-                    name="nombre"
-                    value={nombre}
-                    placeholder="Ingresa tu nombre"
-                    onChange = {cambioRegistro}
-                />
-            </CampoForm>
-
-            <CampoForm>
-                <input
-                    type="text"
-                    id="cumpleaños"
-                    name="cumpleaños"
-                    value={cumpleaños}
-                    placeholder="Ingresa tu fecha de cumpleaños"
-                    onFocus = {onfocus}
-                    onBlur = {onblur}
-                    onChange = {cambioRegistro}
-                />
-            </CampoForm>
-
-            <CampoForm>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={email}
-                    placeholder="Ingresa tu email"
-                    onChange = {cambioRegistro}
-                />
-            </CampoForm>
-
-            <CampoForm>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={password}
-                    placeholder="Ingresa tu password"
-                    onChange = {cambioRegistro}
-                />
-            </CampoForm>
-
-             {alerta ? <Alarma><p>{msgerror}</p></Alarma> :null} 
-
-            <CampoForm>
-                <input
-                    type="submit"
-                    value="Crear cuenta"
-                />
-            </CampoForm>
-
-        </form>
-        </ContenedorForm>
-
-    </FormUsuario>
-        
-     );
-}
- 
-export default NuevaCuenta;

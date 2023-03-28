@@ -27,17 +27,20 @@ const Drop = () => {
     const update = useSelector(state => state.user);
     const { cambio } = update;
 
+    
     useEffect(() => {
         if(!autenticado){
-            router.push('/');
+          router.push('/');
+        return
         }   
-    }, [autenticado, router]);
+    }, [autenticado]);
+
 
     useEffect(() => {
       if(cambio){
           obtenerUsuario()
       }
-    }, [cambio, obtenerUsuario])
+    }, [cambio])
 
     return ( 
     <>

@@ -1,5 +1,6 @@
 import React, {useEffect, useCallback, useState} from 'react'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux';
@@ -94,7 +95,7 @@ const Busqueda = () => {
         </ContenedorIcon>
 
         <ContenedorIMG onClick={cambioEdicion}>
-           <img src={img}  />
+           <Image src={img}  />
         </ContenedorIMG>
 
     </ContenedorBusqueda>

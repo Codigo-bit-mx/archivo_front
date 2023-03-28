@@ -98,7 +98,7 @@ const Menu = () => {
 
     useEffect(() => {
       obtenerUsuario()
-    }, [cambio, obtenerUsuario]);
+    }, [cambio]);
 
     const cerrar_sesion = () => {
         cerrarSesionArchivo()
